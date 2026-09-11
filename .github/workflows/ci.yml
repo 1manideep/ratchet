@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync --group dev
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - name: mypy (ratchet-core only -- see pyproject.toml [tool.mypy] comment)
+        run: uv run mypy
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+      - run: uv python install ${{ matrix.python-version }}
+      - run: uv sync --group dev --python ${{ matrix.python-version }}
+      - name: Run ratchet-core test suite (tokens, attacks, fuzz, blast radius, overhead)
+        run: uv run --package ratchet-core --python ${{ matrix.python-version }} pytest packages/ratchet-core/tests/ -v
+
+  adapters-import-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync
+      - name: Import-check every adapter against its real framework dependency
+        run: |
+          uv run python -c "import ratchet_langgraph"
+          uv run python -c "import ratchet_crewai"
+          uv run python -c "import ratchet_autogen"
+          uv run python -c "import ratchet_mcp"
+      - name: Run runnable examples
+        run: |
+          uv run python examples/langgraph_example.py
+          uv run python examples/crewai_example.py
+          uv run python examples/autogen_example.py
+          uv run python examples/mcp_example.py
