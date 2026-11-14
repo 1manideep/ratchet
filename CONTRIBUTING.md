@@ -17,7 +17,7 @@ uv sync --group dev
 uv run ruff check .
 uv run ruff format --check .
 uv run mypy
-uv run --package ratchet-core pytest packages/ratchet-core/tests/ -v
+uv run --package ratchet-authz-core pytest packages/ratchet-core/tests/ -v
 ```
 
 All four must pass. CI runs the same checks on every PR.

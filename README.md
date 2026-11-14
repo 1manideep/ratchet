@@ -1,7 +1,5 @@
 # Ratchet
 
-[![CI](https://github.com/1manideep/ratchet/actions/workflows/ci.yml/badge.svg)](https://github.com/1manideep/ratchet/actions/workflows/ci.yml)
-
 **A capability token can only narrow at each delegation hop — never widen it.**
 
 Ratchet is an open-source authorization broker that sits between LLM agents
@@ -9,13 +7,13 @@ and the tools/sub-agents they call, enforcing one invariant: **a fully
 prompt-hijacked agent still cannot exceed the authority explicitly delegated
 to it.**
 
-This is the first open-source reference implementation of the architecture
+This is an open-source reference implementation of the architecture
 described in **["Delegation Without Trust: An Empirical Gap Analysis of
 Identity, Authorization, and Runtime Governance in Multi-Agent LLM
 Systems"](https://arxiv.org/abs/2609.00267)** (Dantuluri & Sundi, VotalAI,
 arXiv:2609.00267). The paper's own reference implementation was built and
-adversarially evaluated but **never publicly released** — that's the gap
-this project closes. Ratchet is an independent, MIT-licensed project, not
+adversarially evaluated but **not publicly released**; Ratchet provides
+one. Ratchet is an independent, MIT-licensed project, not
 affiliated with the paper's authors or VotalAI.
 
 ## Why
@@ -66,18 +64,27 @@ ratchet/
 ```
 
 A `uv` workspace: install only the adapter you need, e.g. `pip install
-ratchet-langgraph` (which depends on `ratchet-core` automatically).
-`ratchet-core` has **zero third-party runtime dependencies** beyond the
+ratchet-authz-langgraph` (which depends on `ratchet-authz-core` automatically).
+`ratchet-authz-core` has **zero third-party runtime dependencies** beyond the
 standard library and `cryptography` (used only for Ed25519 workload
 identity keys — HMAC/SHA-256 token signing is stdlib `hmac`/`hashlib`).
 
-## Install (from source, for now)
+## Install
 
 ```bash
-git clone git@github.com:1manideep/ratchet.git
+pip install ratchet-authz-core           # the broker alone
+pip install ratchet-authz-langgraph      # or your framework's adapter, which brings the core
+```
+
+The import names are `ratchet_core`, `ratchet_langgraph`, `ratchet_crewai`, `ratchet_autogen` and `ratchet_mcp`.
+
+From source:
+
+```bash
+git clone https://github.com/1manideep/ratchet.git
 cd ratchet
 uv sync                              # installs every package + dev deps
-uv run --package ratchet-core pytest packages/ratchet-core/tests/ -v
+uv run --package ratchet-authz-core pytest packages/ratchet-core/tests/ -v
 ```
 
 ## Quickstart
@@ -180,7 +187,7 @@ Full runnable example: [examples/mcp_example.py](examples/mcp_example.py)
 
 ## Benchmark results
 
-Measured by running `uv run --package ratchet-core python
+Measured by running `uv run --package ratchet-authz-core python
 benchmarks/reproduce_paper_numbers.py` on a 2026-era Apple Silicon laptop —
 your hardware will vary; the point is the same order of magnitude as the
 paper's ~2.6µs/~5.4µs, negligible against model inference (hundreds of ms
@@ -199,7 +206,7 @@ The 11-attack adversarial-robustness suite and the four named-threat
 see [packages/ratchet-core/tests/test_attacks.py](packages/ratchet-core/tests/test_attacks.py):
 
 ```bash
-uv run --package ratchet-core pytest packages/ratchet-core/tests/test_attacks.py -v
+uv run --package ratchet-authz-core pytest packages/ratchet-core/tests/test_attacks.py -v
 ```
 
 All 21 pass: the default/unguarded bearer-token baseline succeeds at all
@@ -237,6 +244,10 @@ Real SPIFFE/SPIRE integration, a hosted/remote broker service, a policy
 authoring UI, SMT-solver-verified narrowing, enterprise IdP (Okta/Auth0/
 Entra) integration, and agent-community-governance features (voting,
 dissent preservation) are all explicitly out of scope for v0.1.
+
+## Security
+
+Found a way around the broker's guarantees? Please report it privately: see [SECURITY.md](SECURITY.md).
 
 ## License
 

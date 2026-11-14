@@ -1,10 +1,10 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.15' and sys_platform == 'win32'",
-    "python_full_version == '3.14.*' and sys_platform == 'win32'",
     "python_full_version >= '3.15' and sys_platform != 'win32'",
+    "python_full_version == '3.14.*' and sys_platform == 'win32'",
     "python_full_version == '3.14.*' and sys_platform != 'win32'",
     "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' and sys_platform == 'win32'",
@@ -15,11 +15,11 @@ resolution-markers = [
 
 [manifest]
 members = [
-    "ratchet-autogen",
-    "ratchet-core",
-    "ratchet-crewai",
-    "ratchet-langgraph",
-    "ratchet-mcp",
+    "ratchet-authz-autogen",
+    "ratchet-authz-core",
+    "ratchet-authz-crewai",
+    "ratchet-authz-langgraph",
+    "ratchet-authz-mcp",
 ]
 
 [manifest.dependency-groups]
@@ -2478,8 +2478,8 @@ version = "2.5.2"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "python_full_version >= '3.15' and sys_platform == 'win32'",
-    "python_full_version == '3.14.*' and sys_platform == 'win32'",
     "python_full_version >= '3.15' and sys_platform != 'win32'",
+    "python_full_version == '3.14.*' and sys_platform == 'win32'",
     "python_full_version == '3.14.*' and sys_platform != 'win32'",
     "python_full_version == '3.13.*'",
     "python_full_version == '3.12.*' and sys_platform == 'win32'",
@@ -3754,12 +3754,12 @@ wheels = [
 ]
 
 [[package]]
-name = "ratchet-autogen"
+name = "ratchet-authz-autogen"
 version = "0.1.0"
 source = { editable = "packages/ratchet-autogen" }
 dependencies = [
     { name = "autogen-core" },
-    { name = "ratchet-core" },
+    { name = "ratchet-authz-core" },
 ]
 
 [package.dev-dependencies]
@@ -3770,14 +3770,14 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "autogen-core", specifier = ">=0.4" },
-    { name = "ratchet-core", editable = "packages/ratchet-core" },
+    { name = "ratchet-authz-core", editable = "packages/ratchet-core" },
 ]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8.0" }]
 
 [[package]]
-name = "ratchet-core"
+name = "ratchet-authz-core"
 version = "0.1.0"
 source = { editable = "packages/ratchet-core" }
 dependencies = [
@@ -3796,12 +3796,12 @@ requires-dist = [{ name = "cryptography", specifier = ">=42.0" }]
 dev = [{ name = "pytest", specifier = ">=8.0" }]
 
 [[package]]
-name = "ratchet-crewai"
+name = "ratchet-authz-crewai"
 version = "0.1.0"
 source = { editable = "packages/ratchet-crewai" }
 dependencies = [
     { name = "crewai" },
-    { name = "ratchet-core" },
+    { name = "ratchet-authz-core" },
 ]
 
 [package.dev-dependencies]
@@ -3812,19 +3812,19 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "crewai", specifier = ">=1.0" },
-    { name = "ratchet-core", editable = "packages/ratchet-core" },
+    { name = "ratchet-authz-core", editable = "packages/ratchet-core" },
 ]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8.0" }]
 
 [[package]]
-name = "ratchet-langgraph"
+name = "ratchet-authz-langgraph"
 version = "0.1.0"
 source = { editable = "packages/ratchet-langgraph" }
 dependencies = [
     { name = "langchain" },
-    { name = "ratchet-core" },
+    { name = "ratchet-authz-core" },
 ]
 
 [package.dev-dependencies]
@@ -3835,18 +3835,18 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "langchain", specifier = ">=1.0" },
-    { name = "ratchet-core", editable = "packages/ratchet-core" },
+    { name = "ratchet-authz-core", editable = "packages/ratchet-core" },
 ]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8.0" }]
 
 [[package]]
-name = "ratchet-mcp"
+name = "ratchet-authz-mcp"
 version = "0.1.0"
 source = { editable = "packages/ratchet-mcp" }
 dependencies = [
-    { name = "ratchet-core" },
+    { name = "ratchet-authz-core" },
 ]
 
 [package.dev-dependencies]
@@ -3855,7 +3855,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "ratchet-core", editable = "packages/ratchet-core" }]
+requires-dist = [{ name = "ratchet-authz-core", editable = "packages/ratchet-core" }]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8.0" }]

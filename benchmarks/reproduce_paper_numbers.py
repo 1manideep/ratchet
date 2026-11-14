@@ -7,7 +7,7 @@ CI assertions (see packages/ratchet-core/tests/test_overhead.py for the
 loose, machine-independent CI checks).
 
 Usage:
-    uv run --package ratchet-core python benchmarks/reproduce_paper_numbers.py
+    uv run --package ratchet-authz-core python benchmarks/reproduce_paper_numbers.py
 """
 
 from __future__ import annotations

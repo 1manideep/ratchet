@@ -1,4 +1,4 @@
-# ratchet-autogen
+# ratchet-authz-autogen
 
 AutoGen adapter for **[Ratchet](https://github.com/1manideep/ratchet)** —
 plugs the [Ratchet authorization broker](https://github.com/1manideep/ratchet)
@@ -9,7 +9,7 @@ hijacked model still can't exceed what was explicitly delegated to it.
 ## Install
 
 ```bash
-pip install ratchet-autogen
+pip install ratchet-authz-autogen
 ```
 
 ## Minimal usage

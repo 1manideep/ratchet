@@ -1,4 +1,4 @@
-# ratchet-crewai
+# ratchet-authz-crewai
 
 CrewAI adapter for **[Ratchet](https://github.com/1manideep/ratchet)** —
 plugs the [Ratchet authorization broker](https://github.com/1manideep/ratchet)
@@ -9,7 +9,7 @@ was explicitly delegated to it.
 ## Install
 
 ```bash
-pip install ratchet-crewai
+pip install ratchet-authz-crewai
 ```
 
 ## Minimal usage

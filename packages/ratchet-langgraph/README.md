@@ -1,4 +1,4 @@
-# ratchet-langgraph
+# ratchet-authz-langgraph
 
 LangGraph adapter for **[Ratchet](https://github.com/1manideep/ratchet)** —
 plugs the [Ratchet authorization broker](https://github.com/1manideep/ratchet)
@@ -9,7 +9,7 @@ delegated to it.
 ## Install
 
 ```bash
-pip install ratchet-langgraph
+pip install ratchet-authz-langgraph
 ```
 
 ## Minimal usage
