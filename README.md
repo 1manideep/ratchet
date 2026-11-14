@@ -1,7 +1,5 @@
 # Ratchet
 
-[![CI](https://github.com/1manideep/ratchet/actions/workflows/ci.yml/badge.svg)](https://github.com/1manideep/ratchet/actions/workflows/ci.yml)
-
 **A capability token can only narrow at each delegation hop — never widen it.**
 
 Ratchet is an open-source authorization broker that sits between LLM agents

@@ -11,6 +11,5 @@ The first public release.
   point (`Broker.authorize()`); a hash-chained audit log; revocation that cascades to descendant tokens; and a
   `max_depth` caveat bounding delegation chains.
 - Adapters: `ratchet-authz-langgraph`, `ratchet-authz-crewai`, `ratchet-authz-autogen` and `ratchet-authz-mcp`.
-- Releases publish to PyPI from a GitHub release (`.github/workflows/release.yml`, Trusted Publishing).
 - Published as `ratchet-authz-*` because `ratchet-core` on PyPI is an unrelated project. The import names are
   unchanged (`import ratchet_core`, and so on), and every adapter pins `ratchet-authz-core>=0.1,<0.2`.
