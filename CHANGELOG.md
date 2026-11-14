@@ -2,7 +2,7 @@
 
 Notable changes to the `ratchet-authz-*` packages. Versions follow [Semantic Versioning](https://semver.org/).
 
-## 0.1.0 (unreleased)
+## 0.1.0 (2026-11-14)
 
 The first public release.
 
