@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import base64
 import dataclasses
+import json
+import re
 
 import pytest
 
@@ -152,6 +155,36 @@ def test_serialize_deserialize_round_trip(root_token):
     restored = deserialize_token(blob)
     assert restored == root_token
     assert verify_signature(restored, TEST_SECRET)
+
+
+def _payload_text(blob: str) -> str:
+    return base64.urlsafe_b64decode(blob + "=" * (-len(blob) % 4)).decode("utf-8")
+
+
+def _as_token_string(payload_text: str) -> str:
+    """A payload in canonical base64url, so only the JSON inside differs from a real token."""
+    return base64.urlsafe_b64encode(payload_text.encode("utf-8")).decode("ascii").rstrip("=")
+
+
+def test_deserialize_rejects_other_spellings_of_a_valid_token(root_token):
+    """One token, one string. JSON can spell the same token several ways (a float written with a trailing zero
+    or a different last digit that rounds to the same value, spacing, key order), all decoding to an equal,
+    validly signed Token: only the string serialize_token() writes is accepted. The fuzz test found one such
+    spelling about once in 200,000 mutations."""
+    blob = serialize_token(root_token)
+    text = _payload_text(blob)
+    stamp = re.search(r'"timestamp":([0-9.]+)', text)
+    assert stamp is not None
+    variants = [
+        text.replace(stamp.group(0), stamp.group(0) + "0", 1),  # the same float, written longer
+        text.replace(",", ", ", 1),
+        json.dumps(dict(reversed(list(json.loads(text).items()))), separators=(",", ":")),
+    ]
+    for variant in variants:
+        assert variant != text
+        assert json.loads(variant) == json.loads(text)  # the same token, spelled differently
+        with pytest.raises(RatchetMalformedToken):
+            deserialize_token(_as_token_string(variant))
 
 
 def test_deserialize_garbage_fails_closed():

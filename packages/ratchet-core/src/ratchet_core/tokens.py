@@ -209,11 +209,13 @@ def serialize_token(token: Token) -> str:
 def deserialize_token(data: str) -> Token:
     """Parse a token produced by serialize_token(). Fails closed (RatchetMalformedToken) on any error.
 
-    Rejects non-canonical base64url encodings: base64 has "don't-care" bits
-    at quantum boundaries, so a mutated string can decode to the exact same
-    bytes as a valid token without being identical to it. Re-encoding and
-    requiring an exact match closes that off, rather than treating one
-    logical token as if it had two valid string forms.
+    Accepts only the one string serialize_token() writes for a token, so one
+    logical token never has two valid string forms. Two layers can spell the
+    same token differently: base64 has "don't-care" bits at quantum boundaries,
+    and JSON allows other spacing, key orders and number spellings (a float with
+    a trailing zero, or a last digit that rounds to the same value). Both decode
+    to an equal, validly signed Token; re-serializing it and requiring an exact
+    match with `data` refuses them all.
     """
     try:
         padded = data + "=" * (-len(data) % 4)
@@ -225,12 +227,15 @@ def deserialize_token(data: str) -> Token:
         caveats_by_hop = tuple(
             tuple(Caveat.from_dict(c) for c in hop) for hop in payload["caveats_by_hop"]
         )
-        return Token(
+        token = Token(
             root_id=payload["root_id"],
             chain=chain,
             caveats_by_hop=caveats_by_hop,
             signature=payload["signature"],
         )
+        if serialize_token(token) != data:
+            raise RatchetMalformedToken("non-canonical token encoding")
+        return token
     except RatchetMalformedToken:
         raise
     except (KeyError, ValueError, TypeError, UnicodeDecodeError, binascii.Error) as exc:
