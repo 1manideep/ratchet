@@ -41,13 +41,7 @@ Ratchet closes it with:
 
 ## Architecture
 
-![Ratchet architecture diagram](docs/architecture/ratchet-architecture.png)
-
-Editable source: [docs/architecture/ratchet-architecture.drawio](docs/architecture/ratchet-architecture.drawio)
-(open in [diagrams.net](https://app.diagrams.net) or the VS Code Draw.io
-Integration extension). Also available as
-[SVG](docs/architecture/ratchet-architecture.svg) for higher-resolution
-embedding.
+![How Ratchet works: a human issues the root token; each agent exchanges it for a narrower one for its sub-agent; framework adapters send every tool call to the broker's policy enforcement point, and the tool runs only if allowed](docs/architecture/overview.png)
 
 ## Repository structure
 
