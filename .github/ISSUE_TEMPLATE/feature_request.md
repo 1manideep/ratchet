@@ -9,7 +9,7 @@ labels: enhancement
 
 **Proposed approach** (new caveat type / new adapter / change to the broker API):
 
-**Does this touch the authorization-critical core** (`ratchet-core`), or is
+**Does this touch the authorization-critical core** (`ratchet-authz-core`), or is
 it scoped to an adapter / example / docs?
 
 **Alternatives considered:**

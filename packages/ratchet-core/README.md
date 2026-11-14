@@ -1,4 +1,4 @@
-# ratchet-core
+# ratchet-authz-core
 
 Framework-agnostic authorization broker core for **Ratchet** — an
 open-source implementation of the delegation-authorization broker
@@ -14,12 +14,12 @@ third-party runtime dependencies** beyond the standard library and
 ## Install
 
 ```bash
-pip install ratchet-core
+pip install ratchet-authz-core
 ```
 
 For a specific agent framework, install the matching adapter instead (it
-pulls in `ratchet-core` automatically): `ratchet-langgraph`,
-`ratchet-crewai`, `ratchet-autogen`, or `ratchet-mcp`.
+pulls in `ratchet-authz-core` automatically): `ratchet-authz-langgraph`,
+`ratchet-authz-crewai`, `ratchet-authz-autogen`, or `ratchet-authz-mcp`.
 
 ## Minimal usage
 

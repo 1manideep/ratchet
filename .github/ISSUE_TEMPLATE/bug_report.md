@@ -5,7 +5,7 @@ title: ""
 labels: bug
 ---
 
-**Which package** (ratchet-core / ratchet-langgraph / ratchet-crewai / ratchet-autogen / ratchet-mcp):
+**Which package** (ratchet-authz-core / ratchet-authz-langgraph / ratchet-authz-crewai / ratchet-authz-autogen / ratchet-authz-mcp):
 
 **What happened:**
 

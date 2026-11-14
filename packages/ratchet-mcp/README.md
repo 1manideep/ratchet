@@ -1,4 +1,4 @@
-# ratchet-mcp
+# ratchet-authz-mcp
 
 MCP adapter for **[Ratchet](https://github.com/1manideep/ratchet)** — ASGI
 middleware that validates an `Authorization: Bearer <token>` header against
@@ -9,7 +9,7 @@ tool handler runs, aligned with RFC 8693 (Token Exchange) and RFC 8707
 ## Install
 
 ```bash
-pip install ratchet-mcp
+pip install ratchet-authz-mcp
 ```
 
 ## Minimal usage

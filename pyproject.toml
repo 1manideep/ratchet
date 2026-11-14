@@ -2,11 +2,11 @@
 members = ["packages/*"]
 
 [tool.uv.sources]
-ratchet-core = { workspace = true }
-ratchet-langgraph = { workspace = true }
-ratchet-crewai = { workspace = true }
-ratchet-autogen = { workspace = true }
-ratchet-mcp = { workspace = true }
+ratchet-authz-core = { workspace = true }
+ratchet-authz-langgraph = { workspace = true }
+ratchet-authz-crewai = { workspace = true }
+ratchet-authz-autogen = { workspace = true }
+ratchet-authz-mcp = { workspace = true }
 
 [dependency-groups]
 dev = [
